@@ -132,6 +132,8 @@ def launch_tensorboard(bin_dir="/tmp", log_dir="/tmp", retval=False):
     print("status: tensorboard={}, ngrok={}".format(is_tensorboard_running,
                                                     is_ngrok_running))
 
+    print('erics version', flush=True)
+
     if not is_tensorboard_running:
         print('found tensboard not running', flush=True)
         get_ipython().system_raw(
