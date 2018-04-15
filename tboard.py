@@ -133,19 +133,19 @@ def launch_tensorboard(bin_dir="/tmp", log_dir="/tmp", retval=False):
                                                     is_ngrok_running))
 
     if not is_tensorboard_running:
-        print('found tensboard not running')
+        print('found tensboard not running', flush=True)
         get_ipython().system_raw(
             'tensorboard --logdir {} --host 0.0.0.0 --port 6006 &'
             .format(log_dir))
         is_tensorboard_running = True
-    print('tensorboard is running')
+    print('tensorboard is running', flush=True)
 
     if not is_ngrok_running:
         #    grok should be installed in /tmp/ngrok
         print('found ngrok not running')
         get_ipython().system_raw('{}/ngrok http 6006 &'.format(bin_dir))
         is_ngrok_running = True
-    print('ngrok is running')
+    print('ngrok is running', flush=True)
 
     # get tensorboard url
     # BUG: getting connection refused for HTTPConnectionPool(host='localhost', port=4040)
@@ -153,9 +153,9 @@ def launch_tensorboard(bin_dir="/tmp", log_dir="/tmp", retval=False):
     import time
     time.sleep(3)
 
-    print('before requests.get()')
+    print('before requests.get()', flush=True)
     retval = requests.get('http://localhost:4040/api/tunnels')
-    print('after requests.get()')
+    print('after requests.get()', flush=True)
 
     tensorboard_url = retval.json()['tunnels'][0]['public_url'].strip()
     print("tensorboard url=", tensorboard_url)
